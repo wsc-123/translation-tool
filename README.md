@@ -10,7 +10,7 @@ A Windows desktop translation tool based on Baidu Translate API, supporting glob
 
 - 📋 **剪贴板翻译**：复制文本后按快捷键自动翻译
 - 🔔 **通知提醒**：Windows 桌面通知显示翻译结果
-- ⌨️ **全局快捷键**：`Alt+T` 触发翻译（可自定义）
+- ⌨️ **全局快捷键**：`F9` 触发翻译（可自定义）
 - 🚀 **快速便捷**：翻译结果自动复制到剪贴板，直接粘贴使用
 - 🔒 **隐私安全**：本地运行，数据仅用于翻译
 
@@ -95,7 +95,7 @@ python hotkey_listener.py
 
 1. **启动程序**：运行启动脚本或命令
 2. **复制文本**：选中中文文本，按 `Ctrl+C` 复制
-3. **触发翻译**：按 `Alt+T`
+3. **触发翻译**：按 `F9`
 4. **查看结果**：
    - 桌面右下角弹出通知显示翻译结果
    - 翻译结果已自动复制到剪贴板
@@ -105,7 +105,7 @@ python hotkey_listener.py
 
 | 快捷键 | 功能 |
 |--------|------|
-| `Alt+T` | 翻译剪贴板内容 |
+| `F9` | 翻译剪贴板内容 |
 | `Ctrl+Shift+Q` | 退出程序 |
 
 ---
@@ -118,7 +118,7 @@ python hotkey_listener.py
 
 ```python
 # 注册快捷键
-keyboard.add_hotkey('alt+t', self.translate_clipboard)  # 修改 'alt+t' 为你想要的快捷键
+keyboard.add_hotkey('F9', self.translate_clipboard)  # 修改 'F9' 为你想要的快捷键
 keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
 ```
 
