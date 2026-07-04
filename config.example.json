@@ -1,0 +1,10 @@
+{
+  "baidu": {
+    "app_id": "你的百度翻译APP_ID",
+    "secret_key": "你的百度翻译密钥"
+  },
+  "translation": {
+    "from_lang": "zh",
+    "to_lang": "en"
+  }
+}
