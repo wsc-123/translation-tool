@@ -9,6 +9,11 @@ echo 正在启动...
 echo.
 
 cd /d "%~dp0"
-C:\Python\python.exe hotkey_listener.py
+where py >nul 2>nul
+if %errorlevel%==0 (
+    py -3 hotkey_listener.py
+) else (
+    python hotkey_listener.py
+)
 
 pause

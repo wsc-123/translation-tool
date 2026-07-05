@@ -8,13 +8,19 @@ import os
 # 将当前脚本所在目录添加到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from translator import BaiduTranslator
+from translator import BaiduTranslator, ConfigError
 
 
 class TranslationHotkey:
     def __init__(self):
         """初始化快捷键监听器"""
-        self.translator = BaiduTranslator()
+        try:
+            self.translator = BaiduTranslator()
+        except ConfigError as e:
+            print(f"配置错误: {e}")
+            self.show_notification("配置错误", str(e))
+            raise SystemExit(1) from e
+
         self.last_trigger_time = 0
         self.cooldown = 0.5  # 防止重复触发，冷却时间0.5秒
 

@@ -12,22 +12,26 @@ A Windows desktop translation tool based on Baidu Translate API, supporting glob
 - 🔔 **通知提醒**：Windows 桌面通知显示翻译结果
 - ⌨️ **全局快捷键**：`F9` 触发翻译（可自定义）
 - 🚀 **快速便捷**：翻译结果自动复制到剪贴板，直接粘贴使用
-- 🔒 **隐私安全**：本地运行，数据仅用于翻译
+- 🔒 **隐私安全**：本地运行，配置文件不会上传到 GitHub
 
 ---
 
 ## 📦 项目结构 | Project Structure
 
-```
-Language change project/
+```text
+translation-tool/
 │
-├── config.json              # API 配置文件
+├── config.example.json      # API 配置文件示例
 ├── translator.py            # 百度翻译核心逻辑
 ├── hotkey_listener.py       # 快捷键监听主程序
 ├── requirements.txt         # Python 依赖包列表
 ├── 启动翻译助手.bat          # Windows 启动脚本
-└── README.md                # 项目说明文档
+├── README.md                # 项目说明文档
+├── LICENSE                  # 开源许可证
+└── .gitignore               # Git 忽略规则
 ```
+
+> `config.json` 需要用户本地自行创建，里面包含 API 密钥，不应上传到 GitHub。
 
 ---
 
@@ -43,15 +47,27 @@ cd translation-tool
 ### 2. 安装 Python
 
 - 下载并安装 [Python 3.11+](https://www.python.org/downloads/)
-- 或使用便携版 Python（解压到 `C:\Python` 目录）
+- Windows 用户建议勾选 “Add Python to PATH”
 
 ### 3. 安装依赖
 
 ```bash
-pip install -r requirements.txt
+py -3 -m pip install -r requirements.txt
+```
+
+如果你的系统没有 `py` 命令，可以使用：
+
+```bash
+python -m pip install -r requirements.txt
 ```
 
 ### 4. 配置 API
+
+复制配置模板：
+
+```bash
+copy config.example.json config.json
+```
 
 编辑 `config.json`，填入你的百度翻译 API 密钥：
 
@@ -69,6 +85,7 @@ pip install -r requirements.txt
 ```
 
 **获取百度翻译 API：**
+
 1. 访问 [百度翻译开放平台](https://fanyi-api.baidu.com/)
 2. 注册并创建应用
 3. 获取 APP ID 和密钥
@@ -80,26 +97,34 @@ pip install -r requirements.txt
 ### 启动程序
 
 **方法 1：双击启动脚本**
-```
+
+```text
 双击运行 "启动翻译助手.bat"
 ```
 
 **方法 2：命令行启动**
+
+```bash
+py -3 hotkey_listener.py
+```
+
+如果你的系统没有 `py` 命令，可以使用：
+
 ```bash
 python hotkey_listener.py
 ```
 
-**注意**：需要**管理员权限**才能使全局快捷键生效。
+**注意**：如果全局快捷键无响应，请尝试以管理员身份运行。
 
 ### 翻译流程
 
 1. **启动程序**：运行启动脚本或命令
-2. **复制文本**：选中中文文本，按 `Ctrl+C` 复制
+2. **复制文本**：选中文本，按 `Ctrl+C` 复制
 3. **触发翻译**：按 `F9`
 4. **查看结果**：
    - 桌面右下角弹出通知显示翻译结果
    - 翻译结果已自动复制到剪贴板
-5. **粘贴使用**：按 `Ctrl+V` 直接粘贴英文翻译
+5. **粘贴使用**：按 `Ctrl+V` 直接粘贴译文
 
 ### 快捷键
 
@@ -117,8 +142,7 @@ python hotkey_listener.py
 编辑 `hotkey_listener.py`，找到以下代码并修改：
 
 ```python
-# 注册快捷键
-keyboard.add_hotkey('F9', self.translate_clipboard)  # 修改 'F9' 为你想要的快捷键
+keyboard.add_hotkey('f9', self.translate_clipboard)
 keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
 ```
 
@@ -129,13 +153,14 @@ keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
 ```json
 {
   "translation": {
-    "from_lang": "zh",    # 源语言：zh=中文, en=英文, jp=日语等
-    "to_lang": "en"       # 目标语言
+    "from_lang": "zh",
+    "to_lang": "en"
   }
 }
 ```
 
-**语言代码参考**：
+**常用语言代码：**
+
 - `zh` - 中文
 - `en` - 英文
 - `jp` - 日语
@@ -143,13 +168,13 @@ keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
 - `fra` - 法语
 - `spa` - 西班牙语
 
-更多语言代码请参考 [百度翻译语言列表](https://fanyi-api.baidu.com/product/113)
+更多语言代码请参考 [百度翻译语言列表](https://fanyi-api.baidu.com/product/113)。
 
 ---
 
 ## 📋 依赖包 | Dependencies
 
-```
+```text
 requests       # HTTP 请求库
 keyboard       # 全局快捷键监听
 pyperclip      # 剪贴板操作
@@ -168,7 +193,8 @@ winotify       # Windows 通知
 
 ## ⚠️ 注意事项 | Notes
 
-- 需要管理员权限运行以使全局快捷键生效
+- 需要先创建本地 `config.json` 并填写百度翻译 API 密钥
+- `config.json` 已被 `.gitignore` 忽略，请不要上传到 GitHub
 - 确保网络连接正常（需访问百度翻译 API）
 - 支持多行文本翻译
 - 百度翻译 API 有调用频率限制（标准版 QPS=1）
@@ -177,18 +203,27 @@ winotify       # Windows 通知
 
 ## 🔧 故障排除 | Troubleshooting
 
+### 提示未找到 config.json
+
+- 复制 `config.example.json` 为 `config.json`
+- 检查 `config.json` 是否和 `hotkey_listener.py` 在同一目录
+
 ### 快捷键无响应
+
 - 以管理员身份运行程序
 - 检查快捷键是否与其他程序冲突
 
 ### 翻译失败
+
 - 检查网络连接
 - 确认 API 密钥配置正确
 - 查看百度翻译 API 额度是否用尽
+- 检查源语言和目标语言代码是否正确
 
 ### 通知不显示
+
 - 检查 Windows 通知设置是否开启
-- 确认 winotify 已正确安装
+- 确认 `winotify` 已正确安装
 
 ---
 
@@ -204,7 +239,6 @@ MIT License
 - [keyboard](https://github.com/boppreh/keyboard)
 - [pyperclip](https://github.com/asweigart/pyperclip)
 - [winotify](https://github.com/verillious/winotify)
-- [Linux DO](https://linux.do/)
 
 ---
 
@@ -214,4 +248,4 @@ MIT License
 
 ---
 
-**使用愉快！Enjoy translating!** 🎉
+**使用愉快！Enjoy translating!**
