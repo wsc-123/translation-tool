@@ -204,7 +204,6 @@ MIT License
 - [keyboard](https://github.com/boppreh/keyboard)
 - [pyperclip](https://github.com/asweigart/pyperclip)
 - [winotify](https://github.com/verillious/winotify)
-  (https://linux.do/)
 
 ---
 
