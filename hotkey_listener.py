@@ -48,6 +48,10 @@ class TranslationHotkey:
             # 调用翻译
             translated = self.translator.translate(text)
 
+            if translated.startswith(("翻译失败", "翻译出错")):
+                self.show_notification("翻译失败", translated[:100])
+                return
+
             # 将翻译结果写入剪贴板
             pyperclip.copy(translated)
 

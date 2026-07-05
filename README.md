@@ -37,12 +37,21 @@ translation-tool/
 
 ## 🛠️ 安装步骤 | Installation
 
-### 1. 克隆项目
+### 1. 下载项目
+
+**方法 1：使用 Git 克隆**
 
 ```bash
-git clone https://github.com/your-username/translation-tool.git
+git clone https://github.com/wsc-123/translation-tool.git
 cd translation-tool
 ```
+
+**方法 2：下载 ZIP**
+
+1. 打开项目 GitHub 页面
+2. 点击绿色的 `Code`
+3. 选择 `Download ZIP`
+4. 解压后进入项目文件夹
 
 ### 2. 安装 Python
 
@@ -239,7 +248,6 @@ MIT License
 - [keyboard](https://github.com/boppreh/keyboard)
 - [pyperclip](https://github.com/asweigart/pyperclip)
 - [winotify](https://github.com/verillious/winotify)
-- [Liunx Do](https://linux.do/)
 
 ---
 
