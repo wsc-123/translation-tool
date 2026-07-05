@@ -6,5 +6,10 @@
   "translation": {
     "from_lang": "zh",
     "to_lang": "en"
+  },
+  "hotkeys": {
+    "clipboard_translate": "f9",
+    "selection_translate_mouse_button": "x2",
+    "exit": "ctrl+shift+q"
   }
 }

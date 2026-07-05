@@ -9,6 +9,7 @@ A Windows desktop translation tool based on Baidu Translate API, supporting glob
 ## ✨ 功能特点 | Features
 
 - 📋 **剪贴板翻译**：复制文本后按快捷键自动翻译
+- 🖱️ **选中即译**：选中文本后按鼠标上侧键，自动复制并翻译
 - 🔔 **通知提醒**：Windows 桌面通知显示翻译结果
 - ⌨️ **全局快捷键**：`F9` 触发翻译（可自定义）
 - 🚀 **快速便捷**：翻译结果自动复制到剪贴板，直接粘贴使用
@@ -89,6 +90,11 @@ copy config.example.json config.json
   "translation": {
     "from_lang": "zh",
     "to_lang": "en"
+  },
+  "hotkeys": {
+    "clipboard_translate": "f9",
+    "selection_translate_mouse_button": "x2",
+    "exit": "ctrl+shift+q"
   }
 }
 ```
@@ -135,11 +141,18 @@ python hotkey_listener.py
    - 翻译结果已自动复制到剪贴板
 5. **粘贴使用**：按 `Ctrl+V` 直接粘贴译文
 
+### 一步翻译流程
+
+1. **选中文本**：在任意软件里选中要翻译的文本
+2. **按鼠标上侧键**：程序会自动执行 `Ctrl+C`，然后翻译选中文本
+3. **粘贴使用**：翻译结果会自动复制到剪贴板
+
 ### 快捷键
 
 | 快捷键 | 功能 |
 |--------|------|
 | `F9` | 翻译剪贴板内容 |
+| 鼠标上侧键 | 自动复制选中文本并翻译 |
 | `Ctrl+Shift+Q` | 退出程序 |
 
 ---
@@ -148,12 +161,19 @@ python hotkey_listener.py
 
 ### 修改快捷键
 
-编辑 `hotkey_listener.py`，找到以下代码并修改：
+编辑 `config.json` 的 `hotkeys`：
 
-```python
-keyboard.add_hotkey('f9', self.translate_clipboard)
-keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
+```json
+{
+  "hotkeys": {
+    "clipboard_translate": "f9",
+    "selection_translate_mouse_button": "x2",
+    "exit": "ctrl+shift+q"
+  }
+}
 ```
+
+`selection_translate_mouse_button` 默认值 `x2` 通常对应上方/前进侧键；如果你的鼠标相反，把它改成 `x` 即可。
 
 ### 修改翻译语言
 
@@ -186,6 +206,7 @@ keyboard.add_hotkey('ctrl+shift+q', lambda: self.stop())
 ```text
 requests       # HTTP 请求库
 keyboard       # 全局快捷键监听
+mouse          # 鼠标侧键监听
 pyperclip      # 剪贴板操作
 winotify       # Windows 通知
 ```
@@ -248,7 +269,7 @@ MIT License
 - [keyboard](https://github.com/boppreh/keyboard)
 - [pyperclip](https://github.com/asweigart/pyperclip)
 - [winotify](https://github.com/verillious/winotify)
-- [Linux DO](https://linux.do/)
+- [Linux Do](https://linux.do/)
 
 ---
 
