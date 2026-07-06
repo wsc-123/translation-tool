@@ -10,10 +10,12 @@ A Windows desktop translation tool based on Baidu Translate API, supporting glob
 
 - 📋 **剪贴板翻译**：复制文本后按快捷键自动翻译
 - 🖱️ **选中即译**：选中文本后按鼠标上侧键，自动复制并翻译
+- 🔎 **英文自动翻译**：复制英文文本后自动弹出中文译文小窗口
+- 📄 **长文本支持**：长文本会自动分段翻译并合并结果
 - 🔔 **通知提醒**：Windows 桌面通知显示翻译结果
 - ⌨️ **全局快捷键**：`F9` 触发翻译（可自定义）
 - 🚀 **快速便捷**：翻译结果自动复制到剪贴板，直接粘贴使用
-- 🔒 **隐私安全**：本地运行，配置文件不会上传到 GitHub
+- 🔒 **配置安全**：本地配置文件不会上传到 GitHub
 
 ---
 
@@ -95,6 +97,16 @@ copy config.example.json config.json
     "clipboard_translate": "f9",
     "selection_translate_mouse_button": "x2",
     "exit": "ctrl+shift+q"
+  },
+  "auto_translate": {
+    "enabled": true,
+    "from_lang": "en",
+    "to_lang": "zh",
+    "min_length": 3,
+    "min_words": 1,
+    "min_letter_ratio": 0.45,
+    "poll_interval": 0.3,
+    "popup_seconds": 0
   }
 }
 ```
@@ -147,12 +159,20 @@ python hotkey_listener.py
 2. **按鼠标上侧键**：程序会自动执行 `Ctrl+C`，然后翻译选中文本
 3. **粘贴使用**：翻译结果会自动复制到剪贴板
 
+### 英文自动弹窗翻译
+
+1. **复制英文文本**：选中英文内容，按 `Ctrl+C`
+2. **自动识别**：程序判断内容明显是英文后自动翻译成中文
+3. **查看译文**：弹出小窗口显示中文译文
+4. **按需复制**：点击“复制译文”才会把中文译文复制到剪贴板
+
 ### 快捷键
 
 | 快捷键 | 功能 |
 |--------|------|
 | `F9` | 翻译剪贴板内容 |
 | 鼠标上侧键 | 自动复制选中文本并翻译 |
+| 复制英文文本 | 自动弹窗显示中文译文 |
 | `Ctrl+Shift+Q` | 退出程序 |
 
 ---
@@ -174,6 +194,27 @@ python hotkey_listener.py
 ```
 
 `selection_translate_mouse_button` 默认值 `x2` 通常对应上方/前进侧键；如果你的鼠标相反，把它改成 `x` 即可。
+
+### 修改英文自动弹窗翻译
+
+编辑 `config.json` 的 `auto_translate`：
+
+```json
+{
+  "auto_translate": {
+    "enabled": true,
+    "from_lang": "en",
+    "to_lang": "zh",
+    "min_length": 3,
+    "min_words": 1,
+    "min_letter_ratio": 0.45,
+    "poll_interval": 0.3,
+    "popup_seconds": 0
+  }
+}
+```
+
+如需关闭复制英文后的自动弹窗，把 `enabled` 改成 `false`。
 
 ### 修改翻译语言
 
@@ -226,8 +267,11 @@ winotify       # Windows 通知
 - 需要先创建本地 `config.json` 并填写百度翻译 API 密钥
 - `config.json` 已被 `.gitignore` 忽略，请不要上传到 GitHub
 - 确保网络连接正常（需访问百度翻译 API）
+- 被翻译的文本会发送到百度翻译 API
 - 支持多行文本翻译
+- 长文本会自动分段请求翻译，耗时会比短文本更久
 - 百度翻译 API 有调用频率限制（标准版 QPS=1）
+- 英文自动弹窗会排除网址、路径、代码片段和过短文本，减少误触发
 
 ---
 

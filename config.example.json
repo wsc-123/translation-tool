@@ -11,5 +11,15 @@
     "clipboard_translate": "f9",
     "selection_translate_mouse_button": "x2",
     "exit": "ctrl+shift+q"
+  },
+  "auto_translate": {
+    "enabled": true,
+    "from_lang": "en",
+    "to_lang": "zh",
+    "min_length": 3,
+    "min_words": 1,
+    "min_letter_ratio": 0.45,
+    "poll_interval": 0.3,
+    "popup_seconds": 0
   }
 }
